@@ -1,63 +1,7 @@
 from PIL import Image
-"""
+#import cv2
+#import numpy as np
 
-def redimensionar_imagen_automaticamente(ruta_imagen,nuevo_ancho):
-    try:
-        #Abrir
-        imagen = Image.open(ruta_imagen)
-        #Dimensiones originales de la imagen
-        ancho_original, alto_imagen = imagen.size
-        #Calcular la nueva altura manteniendo la proporiconalidad
-        # Imprimir las dimensiones originales
-        print(f'Dimensiones originales: {ancho_original}x{alto_imagen}')
-        proporcion = alto_imagen / ancho_original
-        nuevo_alto = int(nuevo_ancho * proporcion)
-        #Redimensionar la imagen
-        imagen_redimensionada = imagen.resize((nuevo_ancho, nuevo_alto))
-        #Guardar la imagen redimensionada
-        imagen_redimensionada.save('imagen_redimensionada.png')
-        print(f'Imagen redimensionada a: {nuevo_ancho}x{nuevo_alto}')
-    
-    except Exception as e:
-        print(f"Error al procesar la iamgen", {e})
-
-#Ejemplo de uso:
-
-direccion_imag = 'C:/Users/sergio.jimenez/Downloads/imagen_generada.png'
-redimensionar_imagen_automaticamente(direccion_imag, 1000)
-"""
-
-import cv2
-import numpy as np
-"""
-def redimensionar_y_recortar(imagen, nuevo_ancho, nuevo_alto):
-    # Leer la imagen
-    img = cv2.imread(imagen)
-
-    # Redimensionar manteniendo la proporción
-    ancho_original, alto_original = img.shape[:2]
-    ratio = min(nuevo_ancho/ancho_original, nuevo_alto/alto_original)
-    dim = (int(ancho_original * ratio), int(alto_original * ratio))
-    img_redimensionada = cv2.resize(img, dim, interpolation=cv2.INTER_AREA)
-
-    # Calcular el desplazamiento para centrar la imagen
-    x_offset = (nuevo_ancho - dim[0]) // 2
-    y_offset = (nuevo_alto - dim[1]) // 2
-
-    # Crear una imagen en blanco del tamaño deseado
-    img_final = np.zeros((nuevo_alto, nuevo_ancho, 3), dtype=np.uint8)
-
-    # Copiar la imagen redimensionada en el centro de la nueva imagen
-    img_final[y_offset:y_offset+dim[1], x_offset:x_offset+dim[0]] = img_redimensionada
-
-    return img_final
-
-# Ejemplo de uso
-imagen_entrada = "C:/Users/sergio.jimenez/Downloads/imagen_generada.png"
-nuevo_ancho, nuevo_alto = 1080, 566
-imagen_salida = redimensionar_y_recortar(imagen_entrada, nuevo_ancho, nuevo_alto)
-cv2.imwrite("imagen_salida.jpg", imagen_salida)
-"""
 
 from PIL import Image,ImageDraw,ImageFilter
 import os
